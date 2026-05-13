@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: attn-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+
+  - type: worker
+    name: attn-creator-agent
+    runtime: node
+    rootDir: agent-creator
+    buildCommand: npm install
+    startCommand: node index.js
+
+  - type: worker
+    name: attn-bidder-agent
+    runtime: node
+    rootDir: agent-bidder
+    buildCommand: npm install
+    startCommand: node index.js
