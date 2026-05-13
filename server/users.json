@@ -1,0 +1,21 @@
+{
+  "users": {
+    "0x0d074b1ac17d8ff0df93499ee841d5d5da752562": {
+      "name": "Test Creator",
+      "email": "test@test.com",
+      "role": "creator",
+      "walletId": "c9847e17-7e1a-5709-98bc-f6b8d6e2e6a0",
+      "walletAddress": "0x0d074b1ac17d8ff0df93499ee841d5d5da752562",
+      "minBid": 5,
+      "tags": [
+        "web3",
+        "arc",
+        "developer"
+      ],
+      "profileURI": "",
+      "registeredAt": "2026-05-13T23:31:41.105Z",
+      "onChain": false,
+      "updatedAt": "2026-05-13T23:31:41.111Z"
+    }
+  }
+}

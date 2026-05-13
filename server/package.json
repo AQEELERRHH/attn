@@ -9,11 +9,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
+    "@circle-fin/developer-controlled-wallets": "^10.3.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "ethers": "^6.16.0",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "uuid": "^14.0.0"
   }
 }
