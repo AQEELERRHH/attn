@@ -1,0 +1,7 @@
+{
+  "transactions": [
+    {
+      "rpc": "https://arc-testnet.drpc.org"
+    }
+  ]
+}
