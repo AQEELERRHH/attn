@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Attn. Agentic Attention Marketplace</title>
+<title>Attn. — Agentic Attention Marketplace</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.7.0/dist/ethers.umd.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -23,631 +22,510 @@ nav{padding:20px 40px;display:flex;align-items:center;justify-content:space-betw
 .logo-mark{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#1B1440}
 .logo-dot{color:var(--gold)}
 .nav-tabs{display:flex;gap:4px}
-.tab{padding:8px 18px;border-radius:6px;border:1px solid transparent;background:none;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;transition:all 0.2s}
+.tab{padding:8px 18px;border-radius:6px;border:1px solid transparent;background:none;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;font-size:13px}
 .tab.active{background:var(--bg3);border-color:var(--border-b);color:var(--text)}
-.tab:hover:not(.active){color:var(--text)}
-.wallet-btn{padding:9px 18px;border-radius:6px;border:1px solid var(--border-b);background:none;color:var(--text2);cursor:pointer;font-family:'DM Mono',monospace;font-size:12px;transition:all 0.2s}
-.wallet-btn.connected{border-color:rgba(46,204,113,0.3);color:var(--green);background:var(--green-dim)}
-.wallet-btn:hover{color:var(--text);border-color:var(--lavender)}
-.page{display:none;padding:40px;max-width:900px;margin:0 auto}
+.pill{font-family:'DM Mono',monospace;font-size:11px;color:var(--green);border:1px solid rgba(46,204,113,0.3);padding:5px 12px;border-radius:20px;background:var(--green-dim);display:none}
+.pill.show{display:block}
+.page{display:none;padding:40px;max-width:860px;margin:0 auto}
 .page.active{display:block}
-
-/* Cards */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:32px;margin-bottom:20px;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .card.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
 .card.purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
-.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.02em;margin-bottom:8px}
-.card-sub{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.6}
-
-/* Form elements */
-.field{margin-bottom:20px}
-.label{display:block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text2);margin-bottom:8px}
-input,textarea{width:100%;background:var(--bg3);border:1px solid var(--border-b);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;outline:none;transition:border-color 0.2s}
+.card-title{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;margin-bottom:8px}
+.card-sub{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.field{margin-bottom:18px}
+.label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text2);margin-bottom:8px}
+input,textarea{width:100%;background:var(--bg3);border:1px solid var(--border-b);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'Inter',sans-serif;font-size:14px;outline:none}
 input:focus,textarea:focus{border-color:var(--gold)}
-textarea{resize:vertical;min-height:80px}
-.tag-input{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--bg3);border:1px solid var(--border-b);border-radius:8px;padding:8px 12px;min-height:46px}
-.tag{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(245,166,35,0.25);padding:3px 10px;border-radius:4px;font-size:12px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
-.tag button{background:none;border:none;color:var(--gold);cursor:pointer;font-size:14px;padding:0;line-height:1}
-.tag-input input{background:none;border:none;padding:4px;min-width:80px;flex:1}
-.tag-input input:focus{border:none}
-
-/* Buttons */
-.btn{padding:12px 24px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;border:none}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--bg3);border:1px solid var(--border-b);border-radius:8px;padding:8px 12px;min-height:46px}
+.tag{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(245,166,35,0.25);padding:3px 10px;border-radius:4px;font-size:11px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
+.tag button{background:none;border:none;color:var(--gold);cursor:pointer;font-size:14px}
+.tag-row input{background:none;border:none;padding:4px;min-width:80px;flex:1;font-size:13px}
+.btn{padding:11px 22px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px}
 .btn-gold{background:var(--gold);color:#1B1440}
-.btn-gold:hover{opacity:0.88}
 .btn-outline{background:transparent;border:1px solid var(--border-b);color:var(--text2)}
-.btn-outline:hover{color:var(--text);border-color:var(--lavender)}
-.btn-sm{padding:8px 16px;font-size:13px}
-.btn-coral{background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-dim)}
+.btn-sm{padding:7px 14px;font-size:12px}
 .btn-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,113,0.2)}
-
-/* Status */
-.status{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:20px;display:none}
-.status.success{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,113,0.2);display:block}
-.status.error{background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-dim);display:block}
-.status.info{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(245,166,35,0.2);display:block}
-
-/* Bid cards */
+.btn-coral{background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-dim)}
+.alert{padding:14px 16px;border-radius:8px;font-size:13px;margin-bottom:16px;line-height:1.5;display:none}
+.alert.show{display:block}
+.alert-success{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,113,0.2)}
+.alert-error{background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-dim)}
+.alert-info{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(245,166,35,0.2)}
+.steps{display:flex;gap:8px;margin-bottom:24px}
+.step-dot{padding:4px 14px;border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;border:1px solid var(--border-b);color:var(--text3)}
+.step-dot.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.step-dot.done{border-color:rgba(46,204,113,0.3);color:var(--green);background:var(--green-dim)}
+.wallet-box{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
+.wallet-addr{font-family:'DM Mono',monospace;font-size:12px;color:var(--text);word-break:break-all;margin-bottom:12px}
 .bid-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px}
-.bid-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
 .bid-amount{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;color:var(--gold)}
-.bid-score{font-family:'DM Mono',monospace;font-size:11px;padding:4px 10px;border-radius:4px;background:var(--purple-dim);color:var(--lavender)}
-.bid-message{font-size:14px;color:var(--text2);margin-bottom:16px;line-height:1.6}
-.bid-actions{display:flex;gap:8px}
-.bid-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:8px}
-
-/* Stats row */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
-.stat{background:var(--bg3);border-radius:8px;padding:20px;border:1px solid var(--border)}
-.stat-val{font-family:'Syne',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em;color:var(--text)}
-.stat-val span{color:var(--gold)}
-.stat-lbl{font-size:12px;color:var(--text2);margin-top:4px}
-
-/* Voice */
-.voice-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--border-b);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
-.voice-btn.listening{border-color:var(--coral);background:var(--coral-dim);color:var(--coral);animation:ripple 1s infinite}
-@keyframes ripple{0%,100%{box-shadow:0 0 0 0 rgba(232,99,90,0.3)}50%{box-shadow:0 0 0 8px rgba(232,99,90,0)}}
-.voice-row{display:flex;gap:12px;align-items:center}
-.voice-transcript{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--text2);min-height:46px;font-family:'DM Mono',monospace}
-
-/* Section title */
+.bid-msg{font-size:13px;color:var(--text2);margin:10px 0;line-height:1.6}
+.badge{font-family:'DM Mono',monospace;font-size:10px;padding:3px 10px;border-radius:4px}
+.badge-pending{background:var(--gold-dim);color:var(--gold)}
+.badge-accepted{background:var(--green-dim);color:var(--green)}
+.creator-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px}
+.creator-name{font-family:'Syne',sans-serif;font-weight:600;font-size:16px;margin-bottom:4px}
+.creator-addr{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:10px;word-break:break-all}
+.tag-pill{font-family:'DM Mono',monospace;font-size:10px;color:var(--lavender);border:1px solid rgba(200,184,232,0.2);padding:2px 8px;border-radius:4px;display:inline-block;margin-right:6px;margin-bottom:6px}
+.empty{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+.copy-btn{background:none;border:1px solid var(--border-b);color:var(--text3);padding:3px 10px;border-radius:4px;font-size:10px;cursor:pointer;font-family:'DM Mono',monospace}
+.faucet-link{color:var(--gold);font-family:'DM Mono',monospace;font-size:12px}
 .section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:28px;letter-spacing:-0.02em;margin-bottom:6px}
-.section-sub{font-size:14px;color:var(--text2);margin-bottom:32px;line-height:1.6}
-
-.empty{text-align:center;padding:48px;color:var(--text3);font-size:14px}
-.divider{border:none;border-top:1px solid var(--border);margin:28px 0}
-.mono{font-family:'DM Mono',monospace;font-size:12px;color:var(--text2)}
-.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:26px;margin-bottom:6px}
+.section-sub{font-size:13px;color:var(--text2);margin-bottom:28px;line-height:1.6}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">
-    <div class="logo-mark">A</div>
-    Attn<span class="logo-dot">.</span>
-  </div>
+  <div class="logo"><div class="logo-mark">A</div>Attn<span class="logo-dot">.</span></div>
   <div class="nav-tabs">
-    <button class="tab active" onclick="showPage('home')">Home</button>
-    <button class="tab" onclick="showPage('creator')">Creator</button>
-    <button class="tab" onclick="showPage('bidder')">Bidder</button>
+    <button type="button" class="tab active" id="tab-home" onclick="goto('home')">Home</button>
+    <button type="button" class="tab" id="tab-creator" onclick="goto('creator')">Creator</button>
+    <button type="button" class="tab" id="tab-bidder" onclick="goto('bidder')">Bidder</button>
+    <button type="button" class="tab" id="tab-dashboard" onclick="goto('dashboard')">Dashboard</button>
   </div>
-  <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">Connect Wallet</button>
+  <div class="pill" id="pill">No wallet</div>
 </nav>
 
-<!-- HOME PAGE -->
 <div class="page active" id="page-home">
   <div style="text-align:center;padding:60px 0 40px">
-    <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--gold);margin-bottom:16px;text-transform:uppercase">Arc Testnet · Live</div>
-    <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:52px;letter-spacing:-0.03em;line-height:1;margin-bottom:16px">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin-bottom:16px;letter-spacing:0.2em">ARC TESTNET · LIVE</div>
+    <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:52px;line-height:1;margin-bottom:16px">
       Attention is <span style="color:var(--gold)">scarce</span><span style="color:var(--text3)">.</span><br>
       Let agents <span style="color:var(--coral)">negotiate</span> it.
     </h1>
-    <p style="font-size:16px;color:var(--text2);max-width:480px;margin:0 auto 40px;line-height:1.7">
-      The agentic attention marketplace on Arc L1. AI agents discover, evaluate, and pay for human attention in USDC trustlessly settled on-chain.
+    <p style="font-size:15px;color:var(--text2);max-width:460px;margin:0 auto 40px;line-height:1.7">
+      The agentic attention marketplace on Arc L1. No MetaMask needed. Your Circle Agent Wallet is provisioned automatically.
     </p>
     <div style="display:flex;gap:12px;justify-content:center">
-      <button class="btn btn-gold" onclick="showPage('creator')">Register as Creator</button>
-      <button class="btn btn-outline" onclick="showPage('bidder')">Deploy Bidder Agent →</button>
-    </div>
-  </div>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-val" id="statCreators">0<span>+</span></div>
-      <div class="stat-lbl">Creators registered</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val" id="statBids">0<span>+</span></div>
-      <div class="stat-lbl">Total bids placed</div>
-    </div>
-    <div class="stat">
-      <div class="stat-val">$0<span>+</span></div>
-      <div class="stat-lbl">USDC volume</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="section-label">Live activity</div>
-    <div id="liveFeed">
-      <div class="empty">Waiting for on-chain activity...</div>
+      <button type="button" class="btn btn-gold" onclick="goto('creator')">Register as Creator</button>
+      <button type="button" class="btn btn-outline" onclick="goto('bidder')">Deploy Bidder Agent →</button>
     </div>
   </div>
 </div>
 
-<!-- CREATOR PAGE -->
 <div class="page" id="page-creator">
-  <div class="section-label">Creator Dashboard</div>
+  <div class="section-label">Creator</div>
   <div class="section-title">Your inbox, priced & ranked.</div>
-  <div class="section-sub">Register once. Your agent handles bids autonomously.</div>
+  <div class="section-sub">Register once. Your Circle Agent Wallet handles everything.</div>
+  <div class="alert alert-success" id="c-success"></div>
+  <div class="alert alert-error" id="c-error"></div>
+  <div class="alert alert-info" id="c-info"></div>
 
-  <div id="creatorStatus" class="status"></div>
-
-  <!-- Registration card -->
-  <div class="card gold" id="registerCard">
-    <div class="card-title">Register as Creator</div>
-    <div class="card-sub">Set your minimum bid and profile tags. Your Creator Agent will manage your inbox.</div>
-
-    <div class="field">
-      <label class="label">Minimum bid (USDC)</label>
-      <input type="number" id="minBid" placeholder="5" min="1" value="5">
+  <div id="c-step1" class="card gold">
+    <div class="steps">
+      <div class="step-dot active">01 Register</div>
+      <div class="step-dot">02 Fund</div>
+      <div class="step-dot">03 Activate</div>
     </div>
-
+    <div class="card-title">Create your profile</div>
+    <div class="card-sub">No MetaMask needed. Circle Agent Wallet provisioned instantly.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="field"><label class="label">Your name</label><input type="text" id="c-name" placeholder="e.g. Asmau"></div>
+      <div class="field"><label class="label">Email (optional)</label><input type="email" id="c-email"></div>
+    </div>
+    <div class="field"><label class="label">Minimum bid (USDC)</label><input type="number" id="c-minbid" value="5" min="1"></div>
     <div class="field">
       <label class="label">Profile tags</label>
-      <div class="tag-input" id="tagContainer">
-        <input type="text" id="tagInput" placeholder="Type tag and press Enter" onkeydown="handleTagInput(event)">
-      </div>
+      <div class="tag-row" id="c-tagrow"><input type="text" id="c-taginput" placeholder="Type tag and press Enter" onkeydown="addTag(event)"></div>
     </div>
-
-    <div class="field">
-      <label class="label">Agent wallet address (optional)</label>
-      <input type="text" id="agentWallet" placeholder="0x... leave blank to use your wallet">
-    </div>
-
-    <div class="field">
-      <label class="label">Profile URI (optional)</label>
-      <input type="text" id="profileURI" placeholder="https://... or ipfs://...">
-    </div>
-
-    <div style="display:flex;gap:12px;align-items:center">
-      <button class="btn btn-gold" onclick="registerCreator()">Register on Arc</button>
-      <div class="voice-btn" onclick="toggleVoice('creator')" id="voiceCreator" title="Voice command">🎤</div>
-      <div class="voice-transcript" id="voiceTranscriptCreator">Say: "Set minimum bid to $20" or "Add tag web3"</div>
-    </div>
+    <button type="button" class="btn btn-gold" onclick="creatorRegister()">Provision Agent Wallet →</button>
   </div>
 
-  <!-- Inbox card -->
-  <div class="card" id="inboxCard" style="display:none">
-    <div class="card-title">Your Inbox</div>
-    <div class="card-sub">Bids ranked by amount. Accept to release USDC instantly.</div>
-    <div id="bidsList"><div class="empty">No bids yet. Share your wallet address to receive bids.</div></div>
-    <button class="btn btn-outline btn-sm" style="margin-top:16px" onclick="loadBids()">Refresh bids</button>
+  <div id="c-step2" class="card" style="display:none">
+    <div class="steps">
+      <div class="step-dot done">01 ✓</div>
+      <div class="step-dot active">02 Fund wallet</div>
+      <div class="step-dot">03 Activate</div>
+    </div>
+    <div class="card-title">Fund your Agent Wallet</div>
+    <div class="card-sub">Your wallet needs testnet USDC to pay gas fees on Arc.</div>
+    <div class="wallet-box">
+      <div class="label">Your Circle Agent Wallet</div>
+      <div class="wallet-addr" id="c-addr">—</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button type="button" class="copy-btn" onclick="copyText('c-addr')">Copy address</button>
+        <a class="faucet-link" href="https://faucet.circle.com" target="_blank">Get testnet USDC →</a>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.8">
+      1. Copy your wallet address above<br>
+      2. Open <strong style="color:var(--gold)">faucet.circle.com</strong> in a <strong>new tab</strong><br>
+      3. Select <strong>Arc Testnet</strong>, paste address, request USDC<br>
+      4. Return here and click below
+    </div>
+    <button type="button" class="btn btn-gold" onclick="creatorActivate()">I've funded my wallet — Activate on Arc →</button>
+  </div>
+
+  <div id="c-step3" class="card" style="display:none">
+    <div class="card-title">Registering on Arc...</div>
+    <div class="alert alert-info show" id="c-onchain">Submitting...</div>
+  </div>
+
+  <div id="c-inbox" class="card" style="display:none">
+    <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+      <div class="card-title" style="margin-bottom:0">Your Inbox</div>
+      <button type="button" class="btn btn-outline btn-sm" onclick="loadInbox()">Refresh</button>
+    </div>
+    <div id="c-bids"><div class="empty">No bids yet.</div></div>
   </div>
 </div>
 
-<!-- BIDDER PAGE -->
 <div class="page" id="page-bidder">
-  <div class="section-label">Bidder Agent</div>
+  <div class="section-label">Bidder</div>
   <div class="section-title">Reach exactly who you need.</div>
-  <div class="section-sub">Configure your agent. It discovers and bids autonomously.</div>
+  <div class="section-sub">Your agent discovers creators and bids autonomously.</div>
+  <div class="alert alert-success" id="b-success"></div>
+  <div class="alert alert-error" id="b-error"></div>
+  <div class="alert alert-info" id="b-info"></div>
 
-  <div id="bidderStatus" class="status"></div>
-
-  <div class="card purple">
-    <div class="card-title">Configure Agent</div>
-    <div class="card-sub">Set your goal and budget. Your agent does the rest.</div>
-
-    <div class="field">
-      <label class="label">Goal</label>
-      <input type="text" id="agentGoal" placeholder="Find Solidity developers building on Arc" value="Find Web3 developers building on Arc">
-    </div>
-
-    <div class="field">
-      <label class="label">Search tags</label>
-      <input type="text" id="searchTags" placeholder="web3, solidity, arc, developer" value="web3, solidity, arc, developer">
-    </div>
-
+  <div id="b-step1" class="card purple">
+    <div class="card-title">Create bidder profile</div>
+    <div class="card-sub">Circle Agent Wallet provisioned instantly.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div class="field">
-        <label class="label">Daily budget (USDC)</label>
-        <input type="number" id="dailyBudget" placeholder="50" value="50">
-      </div>
-      <div class="field">
-        <label class="label">Max bid per creator (USDC)</label>
-        <input type="number" id="maxBid" placeholder="15" value="15">
-      </div>
+      <div class="field"><label class="label">Name</label><input type="text" id="b-name" placeholder="e.g. Acme Corp"></div>
+      <div class="field"><label class="label">Email</label><input type="email" id="b-email"></div>
     </div>
-
-    <div class="field">
-      <label class="label">Message to creators</label>
-      <textarea id="bidMessage" placeholder="Hi, we are building on Arc and would love to connect...">Hi, we are building on Arc and would love to connect with developers in the ecosystem.</textarea>
-    </div>
-
-    <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px">
-      <div class="voice-btn" onclick="toggleVoice('bidder')" id="voiceBidder" title="Voice command">🎤</div>
-      <div class="voice-transcript" id="voiceTranscriptBidder">Say: "Find Arc developers with budget $30" or "Set max bid to $20"</div>
-    </div>
-
-    <button class="btn btn-gold" onclick="searchCreators()">Search Creators</button>
+    <button type="button" class="btn btn-gold" onclick="bidderRegister()">Provision Bidder Wallet →</button>
   </div>
 
-  <!-- Results -->
-  <div id="creatorResults"></div>
+  <div id="b-step2" style="display:none">
+    <div class="card">
+      <div class="card-title">Your Bidder Wallet</div>
+      <div class="wallet-box">
+        <div class="label">Circle Agent Wallet</div>
+        <div class="wallet-addr" id="b-addr">—</div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button type="button" class="copy-btn" onclick="copyText('b-addr')">Copy address</button>
+          <a class="faucet-link" href="https://faucet.circle.com" target="_blank">Get testnet USDC →</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Find creators</div>
+      <div class="field"><label class="label">Search tags</label><input type="text" id="b-tags" value="web3, arc, developer"></div>
+      <div class="field"><label class="label">Message</label><input type="text" id="b-message" value="Hi, building on Arc and would love to connect."></div>
+      <button type="button" class="btn btn-gold" onclick="searchCreators()">Search Creators</button>
+    </div>
+    <div id="b-results"></div>
+  </div>
+</div>
+
+<div class="page" id="page-dashboard">
+  <div class="section-label">Dashboard</div>
+  <div class="section-title">Your activity.</div>
+  <div class="alert alert-info" id="d-info"></div>
+  <div class="alert alert-error" id="d-error"></div>
+  <div class="card">
+    <div class="field">
+      <label class="label">Wallet address</label>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="d-input" placeholder="0x...">
+        <button type="button" class="btn btn-gold" onclick="loadDash()">Load</button>
+      </div>
+    </div>
+  </div>
+  <div id="d-content" style="display:none">
+    <div class="wallet-box">
+      <div class="label">Circle Agent Wallet</div>
+      <div class="wallet-addr" id="d-addr">—</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:28px;color:var(--gold);margin:8px 0" id="d-balance">$0.00</div>
+      <div style="font-size:12px;color:var(--text2)">USDC balance</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Bid history</div>
+      <div id="d-bids"><div class="empty">No bids.</div></div>
+    </div>
+  </div>
 </div>
 
 <script>
-const CONTRACT_ADDRESS = '0xbec80078411D6B5C58EBe3FBB1C31400F09416F1';
-const USDC_ADDRESS = '0x3600000000000000000000000000000000000000';
-const SERVER_URL = 'https://attn-server.onrender.com';
+const SERVER = 'http://localhost:3001';
+let cTags = [];
+let cWallet = null;
+let bWallet = null;
 
-const ABI = [
-  "function registerCreator(uint256 _minBid, string[] calldata _tags, address _agentWallet, string calldata _profileURI) external",
-  "function placeBid(address _creator, uint256 _amount, string calldata _message, bool _isPrivate) external returns (uint256)",
-  "function acceptBid(uint256 _bidId, string calldata _reply) external",
-  "function rejectBid(uint256 _bidId) external",
-  "function getCreatorBids(address _creator) view returns (uint256[])",
-  "function bids(uint256) view returns (address bidder, address creator, uint256 amount, string message, bool isPrivate, uint8 status, uint256 createdAt, string reply)",
-  "function creators(address) view returns (bool registered, uint256 minBid, address agentWallet, string profileURI)"
-];
-
-const USDC_ABI = [
-  "function approve(address spender, uint256 amount) returns (bool)",
-  "function allowance(address owner, address spender) view returns (uint256)"
-];
-
-let provider, signer, contract, usdcContract, userAddress;
-let tags = [];
-let recognition;
-
-// ── Wallet ──
-async function connectWallet() {
-  if (!window.ethereum) return showStatus('creatorStatus', 'MetaMask not found. Please install it.', 'error');
-  try {
-    provider = new ethers.BrowserProvider(window.ethereum);
-    await provider.send('eth_requestAccounts', []);
-
-    // Switch to Arc Testnet
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x4CD152' }] // 5042002 in hex
-      });
-    } catch (switchErr) {
-      if (switchErr.code === 4902) {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{
-            chainId: '0x4CD152',
-            chainName: 'Arc Testnet',
-            nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 6 },
-            rpcUrls: ['https://arc-testnet.drpc.org'],
-            blockExplorerUrls: ['https://testnet.arcscan.app']
-          }]
-        });
-      }
-    }
-
-    signer = await provider.getSigner();
-    userAddress = await signer.getAddress();
-    contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-    usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
-
-    const btn = document.getElementById('walletBtn');
-    btn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
-    btn.classList.add('connected');
-
-    loadBids();
-  } catch (err) {
-    showStatus('creatorStatus', err.message, 'error');
-  }
+function alertMsg(prefix, type, msg) {
+  ['success','error','info'].forEach(t => {
+    const el = document.getElementById(prefix + '-' + t);
+    if (el) { el.textContent = ''; el.classList.remove('show'); }
+  });
+  const el = document.getElementById(prefix + '-' + type);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
 }
 
-// ── Pages ──
-function showPage(name) {
+function goto(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  event.target.classList.add('active');
+  const pg = document.getElementById('page-' + page);
+  const tb = document.getElementById('tab-' + page);
+  if (pg) pg.classList.add('active');
+  if (tb) tb.classList.add('active');
 }
 
-// ── Tags ──
-function handleTagInput(e) {
-  if (e.key === 'Enter' || e.key === ',') {
-    e.preventDefault();
-    const val = e.target.value.trim().replace(',', '');
-    if (val && !tags.includes(val)) {
-      tags.push(val);
-      renderTags();
-    }
-    e.target.value = '';
-  }
+function setPill(addr) {
+  const p = document.getElementById('pill');
+  p.textContent = addr.slice(0,8) + '...' + addr.slice(-4);
+  p.classList.add('show');
+}
+
+function addTag(e) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const v = e.target.value.trim();
+  if (!v || cTags.includes(v)) return;
+  cTags.push(v);
+  renderTags();
+  e.target.value = '';
 }
 
 function renderTags() {
-  const container = document.getElementById('tagContainer');
-  const input = document.getElementById('tagInput');
-  container.innerHTML = '';
-  tags.forEach((t, i) => {
-    const tag = document.createElement('div');
-    tag.className = 'tag';
-    tag.innerHTML = `${t} <button onclick="removeTag(${i})">×</button>`;
-    container.appendChild(tag);
+  const row = document.getElementById('c-tagrow');
+  const input = document.getElementById('c-taginput');
+  row.innerHTML = '';
+  cTags.forEach((t, i) => {
+    const d = document.createElement('div');
+    d.className = 'tag';
+    d.innerHTML = `${t} <button type="button" onclick="removeTag(${i})">×</button>`;
+    row.appendChild(d);
   });
-  container.appendChild(input);
+  row.appendChild(input);
 }
 
 function removeTag(i) {
-  tags.splice(i, 1);
+  cTags.splice(i, 1);
   renderTags();
 }
 
-// ── Register Creator ──
-async function registerCreator() {
-  if (!signer) return showStatus('creatorStatus', 'Connect your wallet first', 'error');
-
-  const minBid = document.getElementById('minBid').value;
-  if (!minBid || minBid < 1) return showStatus('creatorStatus', 'Enter a minimum bid', 'error');
-  if (tags.length === 0) return showStatus('creatorStatus', 'Add at least one tag', 'error');
-
-  showStatus('creatorStatus', 'Registering on Arc Testnet...', 'info');
-
-  try {
-    const minBidUnits = ethers.parseUnits(minBid.toString(), 6);
-    const agentWallet = document.getElementById('agentWallet').value || userAddress;
-    const profileURI = document.getElementById('profileURI').value || '';
-
-    const tx = await contract.registerCreator(minBidUnits, tags, agentWallet, profileURI);
-    showStatus('creatorStatus', 'Transaction submitted, waiting for confirmation...', 'info');
-    await tx.wait();
-
-    showStatus('creatorStatus', `✅ Registered on Arc! Your agent wallet is now active. Tx: ${tx.hash.slice(0,20)}...`, 'success');
-    document.getElementById('inboxCard').style.display = 'block';
-    loadBids();
-  } catch (err) {
-    showStatus('creatorStatus', `Error: ${err.message}`, 'error');
-  }
+function copyText(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent);
 }
 
-// ── Load Bids ──
-async function loadBids() {
-  if (!userAddress) return;
+async function creatorRegister() {
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const minBid = parseFloat(document.getElementById('c-minbid').value) || 5;
+  if (!name) return alertMsg('c', 'error', 'Enter your name');
+  if (cTags.length === 0) return alertMsg('c', 'error', 'Add at least one tag');
+  alertMsg('c', 'info', 'Provisioning your Circle Agent Wallet...');
   try {
-    const res = await fetch(`${SERVER_URL}/bids/${userAddress}`);
+    const res = await fetch(SERVER + '/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, role: 'creator', minBid, tags: cTags })
+    });
     const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    cWallet = data.wallet;
+    sessionStorage.setItem('cWallet', JSON.stringify(cWallet));
+    setPill(cWallet.address);
+    document.getElementById('c-addr').textContent = cWallet.address;
+    document.getElementById('c-step1').style.display = 'none';
+    document.getElementById('c-step2').style.display = 'block';
+    alertMsg('c', 'success', 'Wallet provisioned! ' + cWallet.address);
+  } catch (err) {
+    alertMsg('c', 'error', 'Error: ' + err.message);
+  }
+}
 
-    if (data.bidIds.length === 0) {
-      document.getElementById('bidsList').innerHTML = '<div class="empty">No bids yet. Share your wallet address to receive bids.</div>';
+async function creatorActivate() {
+  if (!cWallet) return alertMsg('c', 'error', 'Register first');
+  alertMsg('c', 'info', 'Registering on Arc...');
+  document.getElementById('c-step2').style.display = 'none';
+  document.getElementById('c-step3').style.display = 'block';
+  try {
+    const res = await fetch(SERVER + '/register/onchain', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ walletAddress: cWallet.address })
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    document.getElementById('c-onchain').textContent = '✅ Registered on Arc!';
+    document.getElementById('c-onchain').className = 'alert alert-success show';
+    alertMsg('c', 'success', '✅ You are live on Arc Testnet!');
+    setTimeout(() => {
+      document.getElementById('c-step3').style.display = 'none';
+      document.getElementById('c-inbox').style.display = 'block';
+      loadInbox();
+    }, 2000);
+  } catch (err) {
+    alertMsg('c', 'error', 'Error: ' + err.message);
+  }
+}
+
+async function loadInbox() {
+  if (!cWallet) return;
+  try {
+    const res = await fetch(SERVER + '/bids/' + cWallet.address);
+    const data = await res.json();
+    const list = document.getElementById('c-bids');
+    if (!data.bids || data.bids.length === 0) {
+      list.innerHTML = '<div class="empty">No bids yet.</div>';
       return;
     }
-
-    document.getElementById('inboxCard').style.display = 'block';
-
-    const rpcProvider = new ethers.JsonRpcProvider('https://arc-testnet.drpc.org');
-    const readContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, rpcProvider);
-
-    let html = '';
-    for (const bidId of data.bidIds.slice(-10).reverse()) {
-      const bid = await readContract.bids(bidId);
-      const amount = ethers.formatUnits(bid.amount, 6);
-      const statusMap = ['Pending', 'Accepted', 'Rejected', 'Refunded'];
-      const statusColors = ['var(--gold)', 'var(--green)', 'var(--coral)', 'var(--text2)'];
-      const status = Number(bid.status);
-      const date = new Date(Number(bid.createdAt) * 1000).toLocaleDateString();
-
-      html += `
-        <div class="bid-card">
-          <div class="bid-header">
-            <div class="bid-amount">$${parseFloat(amount).toFixed(2)} USDC</div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <span style="font-family:'DM Mono',monospace;font-size:11px;color:${statusColors[status]}">${statusMap[status]}</span>
-              <span class="bid-score">Bid #${bidId}</span>
-            </div>
-          </div>
-          <div class="bid-meta">${bid.isPrivate ? 'Anonymous bidder' : bid.bidder.slice(0,10) + '...'} · ${date}</div>
-          <div class="bid-message">${bid.message}</div>
-          ${status === 0 ? `
-            <div class="bid-actions">
-              <button class="btn btn-green btn-sm" onclick="acceptBid(${bidId})">Accept & Release USDC</button>
-              <button class="btn btn-coral btn-sm" onclick="rejectBid(${bidId})">Reject</button>
-            </div>
-          ` : bid.reply ? `<div class="mono" style="margin-top:8px">Reply: ${bid.reply}</div>` : ''}
+    const labels = ['Pending','Accepted','Rejected','Refunded'];
+    list.innerHTML = data.bids.slice().reverse().map(b => `
+      <div class="bid-card">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <div class="bid-amount">$${parseFloat(b.amount).toFixed(2)} USDC</div>
+          <div class="badge ${b.status===1?'badge-accepted':'badge-pending'}">${labels[b.status]}</div>
         </div>
-      `;
-    }
-    document.getElementById('bidsList').innerHTML = html;
-  } catch (err) {
-    console.log('Error loading bids:', err.message);
-  }
+        <div class="bid-msg">${b.message}</div>
+        ${b.status === 0 ? `<button type="button" class="btn btn-green btn-sm" onclick="acceptBid(${b.bidId})">Accept & Release USDC</button>` : ''}
+      </div>
+    `).join('');
+  } catch(e) {}
 }
 
-// ── Accept Bid ──
-async function acceptBid(bidId) {
-  if (!signer) return showStatus('creatorStatus', 'Connect wallet first', 'error');
-  const reply = prompt('Write your reply (min 10 characters):');
-  if (!reply || reply.length < 10) return alert('Reply must be at least 10 characters');
+async function acceptBid(id) {
+  const reply = prompt('Reply (min 10 chars):');
+  if (!reply || reply.length < 10) return;
   try {
-    showStatus('creatorStatus', 'Accepting bid...', 'info');
-    const tx = await contract.acceptBid(bidId, reply);
-    await tx.wait();
-    showStatus('creatorStatus', '✅ Bid accepted — USDC released to your wallet!', 'success');
-    loadBids();
-  } catch (err) {
-    showStatus('creatorStatus', `Error: ${err.message}`, 'error');
-  }
+    const res = await fetch(SERVER + '/bid/accept', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ creatorAddress: cWallet.address, bidId: id, reply })
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    alertMsg('c', 'success', '✅ Accepted — USDC released!');
+    loadInbox();
+  } catch (err) { alertMsg('c', 'error', err.message); }
 }
 
-// ── Reject Bid ──
-async function rejectBid(bidId) {
-  if (!signer) return showStatus('creatorStatus', 'Connect wallet first', 'error');
-  if (!confirm('Reject this bid? The bidder will receive a full refund.')) return;
+async function bidderRegister() {
+  const name = document.getElementById('b-name').value.trim();
+  const email = document.getElementById('b-email').value.trim();
+  if (!name) return alertMsg('b', 'error', 'Enter your name');
+  alertMsg('b', 'info', 'Provisioning bidder wallet...');
   try {
-    const tx = await contract.rejectBid(bidId);
-    await tx.wait();
-    showStatus('creatorStatus', '✅ Bid rejected — USDC refunded to bidder', 'success');
-    loadBids();
-  } catch (err) {
-    showStatus('creatorStatus', `Error: ${err.message}`, 'error');
-  }
+    const res = await fetch(SERVER + '/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, role: 'bidder' })
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    bWallet = data.wallet;
+    sessionStorage.setItem('bWallet', JSON.stringify(bWallet));
+    document.getElementById('b-addr').textContent = bWallet.address;
+    document.getElementById('b-step1').style.display = 'none';
+    document.getElementById('b-step2').style.display = 'block';
+    alertMsg('b', 'success', 'Wallet provisioned!');
+  } catch (err) { alertMsg('b', 'error', err.message); }
 }
 
-// ── Search Creators ──
 async function searchCreators() {
-  const tags = document.getElementById('searchTags').value.split(',').map(t => t.trim());
-  showStatus('bidderStatus', 'Searching creator registry...', 'info');
-
+  const tags = document.getElementById('b-tags').value.split(',').map(t => t.trim()).filter(Boolean);
+  alertMsg('b', 'info', 'Searching...');
   try {
-    const allCreators = new Set();
+    const all = new Set();
     for (const tag of tags) {
-      const res = await fetch(`${SERVER_URL}/registry?tag=${tag}`);
+      const res = await fetch(SERVER + '/registry?tag=' + tag);
       const data = await res.json();
-      data.creators.forEach(c => allCreators.add(c));
+      data.creators.forEach(c => all.add(c));
     }
-
-    if (allCreators.size === 0) {
-      showStatus('bidderStatus', 'No creators found for these tags yet. Be the first to register!', 'info');
-      document.getElementById('creatorResults').innerHTML = '';
+    if (all.size === 0) {
+      alertMsg('b', 'info', 'No creators found.');
+      document.getElementById('b-results').innerHTML = '';
       return;
     }
-
-    showStatus('bidderStatus', `Found ${allCreators.size} creators. Loading profiles...`, 'info');
-
-    const rpcProvider = new ethers.JsonRpcProvider('https://arc-testnet.drpc.org');
-    const readContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, rpcProvider);
-
-    let html = '<div style="margin-top:20px">';
-    for (const addr of allCreators) {
-      const profile = await readContract.creators(addr);
-      const minBid = ethers.formatUnits(profile.minBid, 6);
-      html += `
-        <div class="card" style="margin-bottom:16px">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-            <div>
-              <div class="mono truncate">${addr}</div>
-              <div style="font-size:12px;color:var(--text2);margin-top:4px">Min bid: <span style="color:var(--gold)">$${parseFloat(minBid).toFixed(2)} USDC</span></div>
-            </div>
-            <button class="btn btn-gold btn-sm" onclick="openBidModal('${addr}', ${minBid})">Place Bid</button>
+    const results = [];
+    for (const addr of all) {
+      const res = await fetch(SERVER + '/creator/' + addr);
+      if (!res.ok) continue;
+      results.push(await res.json());
+    }
+    document.getElementById('b-results').innerHTML = results.map(p => `
+      <div class="creator-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div style="flex:1">
+            <div class="creator-name">${p.name || 'Anonymous'}</div>
+            <div class="creator-addr">${p.address}</div>
+            <div>${(p.tags||[]).map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:8px">Min bid: <span style="color:var(--gold)">$${parseFloat(p.minBid).toFixed(2)} USDC</span></div>
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <a href="https://testnet.arcscan.app/address/${addr}" target="_blank" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)">View on Arcscan ↗</a>
-          </div>
+          <button type="button" class="btn btn-gold btn-sm" style="margin-left:16px" onclick="placeBid('${p.address}', '${p.minBid}')">Place Bid</button>
         </div>
-      `;
-    }
-    html += '</div>';
-    document.getElementById('creatorResults').innerHTML = html;
-    showStatus('bidderStatus', `Found ${allCreators.size} creators`, 'success');
-
-  } catch (err) {
-    showStatus('bidderStatus', `Error: ${err.message}`, 'error');
-  }
+      </div>
+    `).join('');
+    alertMsg('b', 'success', 'Found ' + results.length + ' creator(s)');
+  } catch (err) { alertMsg('b', 'error', err.message); }
 }
 
-// ── Place Bid Modal ──
-async function openBidModal(creatorAddress, minBid) {
-  if (!signer) {
-    alert('Connect your wallet first');
-    return;
-  }
-  const amount = prompt(`Enter bid amount (minimum $${minBid} USDC):`);
-  if (!amount || parseFloat(amount) < parseFloat(minBid)) {
-    alert(`Bid must be at least $${minBid} USDC`);
-    return;
-  }
-  const message = document.getElementById('bidMessage').value;
-  if (!message) {
-    alert('Add a message first');
-    return;
-  }
-
+async function placeBid(creator, minBid) {
+  if (!bWallet) return alertMsg('b', 'error', 'Register first');
+  const amount = prompt('Bid amount (min $' + minBid + ' USDC):');
+  if (!amount || parseFloat(amount) < parseFloat(minBid)) return;
+  const message = document.getElementById('b-message').value;
+  alertMsg('b', 'info', 'Placing bid...');
   try {
-    showStatus('bidderStatus', 'Approving USDC...', 'info');
-    const amountUnits = ethers.parseUnits(amount.toString(), 6);
-
-    const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, amountUnits);
-    await approveTx.wait();
-
-    showStatus('bidderStatus', 'Placing bid on Arc...', 'info');
-    const tx = await contract.placeBid(creatorAddress, amountUnits, message, false);
-    await tx.wait();
-
-    showStatus('bidderStatus', `✅ Bid placed! $${amount} USDC locked in escrow. Tx: ${tx.hash.slice(0,20)}...`, 'success');
-  } catch (err) {
-    showStatus('bidderStatus', `Error: ${err.message}`, 'error');
-  }
+    const res = await fetch(SERVER + '/bid', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bidderAddress: bWallet.address, creatorAddress: creator, amount: parseFloat(amount), message, isPrivate: false })
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+    alertMsg('b', 'success', '✅ Bid placed: $' + amount + ' USDC');
+  } catch (err) { alertMsg('b', 'error', err.message); }
 }
 
-// ── Voice Commands ──
-function toggleVoice(page) {
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    alert('Voice not supported in this browser. Try Chrome.');
-    return;
-  }
-
-  const btn = document.getElementById('voice' + (page === 'creator' ? 'Creator' : 'Bidder'));
-  const transcript = document.getElementById('voiceTranscript' + (page === 'creator' ? 'Creator' : 'Bidder'));
-
-  if (recognition) {
-    recognition.stop();
-    recognition = null;
-    btn.classList.remove('listening');
-    return;
-  }
-
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SR();
-  recognition.continuous = false;
-  recognition.lang = 'en-US';
-
-  btn.classList.add('listening');
-  transcript.textContent = 'Listening...';
-
-  recognition.onresult = (e) => {
-    const text = e.results[0][0].transcript;
-    transcript.textContent = `"${text}"`;
-    processVoiceCommand(text, page);
-    btn.classList.remove('listening');
-    recognition = null;
-  };
-
-  recognition.onerror = () => {
-    transcript.textContent = 'Could not hear. Try again.';
-    btn.classList.remove('listening');
-    recognition = null;
-  };
-
-  recognition.start();
+async function loadDash() {
+  const addr = document.getElementById('d-input').value.trim();
+  if (!addr) return;
+  try {
+    const [w, b] = await Promise.all([
+      fetch(SERVER + '/wallet/' + addr),
+      fetch(SERVER + '/bids/' + addr)
+    ]);
+    if (!w.ok) return alertMsg('d', 'error', 'Not found');
+    const wd = await w.json();
+    const bd = await b.json();
+    document.getElementById('d-addr').textContent = addr;
+    const usdc = wd.balances?.find(x => x.token?.symbol === 'USDC');
+    document.getElementById('d-balance').textContent = usdc ? '$' + parseFloat(usdc.amount).toFixed(2) : '$0.00';
+    const labels = ['Pending','Accepted','Rejected','Refunded'];
+    document.getElementById('d-bids').innerHTML = bd.bids?.length > 0
+      ? bd.bids.slice().reverse().map(bid => `
+          <div class="bid-card">
+            <div style="display:flex;justify-content:space-between">
+              <div class="bid-amount">$${parseFloat(bid.amount).toFixed(2)} USDC</div>
+              <div class="badge ${bid.status===1?'badge-accepted':'badge-pending'}">${labels[bid.status]}</div>
+            </div>
+            <div class="bid-msg">${bid.message}</div>
+          </div>`).join('')
+      : '<div class="empty">No bids.</div>';
+    document.getElementById('d-content').style.display = 'block';
+  } catch (err) { alertMsg('d', 'error', err.message); }
 }
 
-function processVoiceCommand(text, page) {
-  const lower = text.toLowerCase();
-
-  if (page === 'creator') {
-    const bidMatch = lower.match(/(\d+)/);
-    if (lower.includes('bid') && bidMatch) {
-      document.getElementById('minBid').value = bidMatch[1];
-      speak(`Minimum bid set to $${bidMatch[1]}`);
-    }
-    const tagMatch = lower.match(/tag\s+(\w+)/);
-    if (tagMatch) {
-      tags.push(tagMatch[1]);
-      renderTags();
-      speak(`Tag ${tagMatch[1]} added`);
+// Restore session
+try {
+  const cw = sessionStorage.getItem('cWallet');
+  const bw = sessionStorage.getItem('bWallet');
+  if (cw) {
+    cWallet = JSON.parse(cw);
+    if (cWallet?.address) {
+      setPill(cWallet.address);
+      document.getElementById('c-addr').textContent = cWallet.address;
+      document.getElementById('c-step1').style.display = 'none';
+      document.getElementById('c-step2').style.display = 'block';
     }
   }
-
-  if (page === 'bidder') {
-    const budgetMatch = lower.match(/budget\s+\$?(\d+)/);
-    if (budgetMatch) {
-      document.getElementById('dailyBudget').value = budgetMatch[1];
-      speak(`Daily budget set to $${budgetMatch[1]}`);
-    }
-    const maxMatch = lower.match(/max\s+\$?(\d+)/);
-    if (maxMatch) {
-      document.getElementById('maxBid').value = maxMatch[1];
-      speak(`Max bid set to $${maxMatch[1]}`);
-    }
-    if (lower.includes('search') || lower.includes('find')) {
-      searchCreators();
-      speak('Searching creators');
+  if (bw) {
+    bWallet = JSON.parse(bw);
+    if (bWallet?.address) {
+      document.getElementById('b-addr').textContent = bWallet.address;
+      document.getElementById('b-step1').style.display = 'none';
+      document.getElementById('b-step2').style.display = 'block';
     }
   }
-}
-
-function speak(text) {
-  const u = new SpeechSynthesisUtterance(text);
-  u.rate = 0.9;
-  window.speechSynthesis.speak(u);
-}
-
-// ── Status helper ──
-function showStatus(id, msg, type) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.className = `status ${type}`;
-}
+} catch(e) {}
 </script>
 </body>
 </html>
